@@ -2,19 +2,12 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
 import { Audio } from 'expo-av';
 
+import NoteManager from"./src/utils/note-manager.util"
+
 export default function App() {
   const [sound, setSound] = React.useState<Audio.Sound>();
-
-  async function playSound() {
-    console.log('Loading Sound');
-    const { sound } = await Audio.Sound.createAsync(
-       require('./assets/sounds/fs4vh.wav')
-    );
-    setSound(sound);
-
-    console.log('Playing Sound');
-    await sound.playAsync(); 
-  }
+  const noteManager : NoteManager = new NoteManager()
+ 
 
   React.useEffect(() => {
     return sound
@@ -26,7 +19,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Button title="Play Sound" onPress={playSound} />
+      <Button title="Play Sound" onPress={noteManager.playSound} />
     </View>
   );
 }
