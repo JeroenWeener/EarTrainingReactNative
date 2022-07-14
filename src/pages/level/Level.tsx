@@ -1,32 +1,22 @@
 import { Audio } from "expo-av"
-import React from "react"
+import React, { useState } from "react"
 import { StyleSheet } from 'react-native'
 import { Button, View } from "react-native"
 import { NavigationScreenProp } from "react-navigation"
+import NoteService from "../../services/NoteService"
 
 interface LevelProps {
     navigation: NavigationScreenProp<any, any>
 }
 
 const Level = ({ navigation }: LevelProps) => {
-    const [sound, setSound] = React.useState<Audio.Sound>()
+    const [noteService] = useState<NoteService>(new NoteService())
 
     const playSound = async () => {
-        console.log('Loading sound')
+        noteService.playSound()
         const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/fs4vh.wav'))
-        setSound(sound)
-        console.log('Playing sound')
         await sound.playAsync()
     }
-
-    React.useEffect(() => {
-        return sound
-            ? () => {
-                console.log('Unloading sound')
-                sound.unloadAsync()
-            }
-            : undefined
-    }, [sound])
 
     return (
         <View style={styles.container}>
