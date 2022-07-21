@@ -1,8 +1,8 @@
 import * as React from 'react'
-import { Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Level from './src/pages/level/Level'
+import LevelPage from './src/pages/level/LevelPage'
+import HomePage from './src/pages/level/HomePage'
 
 export default function App() {
   const Stack = createNativeStackNavigator()
@@ -11,16 +11,16 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="LevelScreen"
-          component={Level}
-          options={{ title: 'Level screen' }}
+          name="HomePage"
+          component={HomePage}
+          options={{ title: 'Home page' }}
         />
-        <Stack.Screen name="AnotherScreen" component={AnotherScreen} />
+        <Stack.Screen
+          name="LevelPage"
+          component={LevelPage}
+          options={{ title: 'Level page' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const AnotherScreen = () => {
-  return <Text>This is another screen</Text>
-};
