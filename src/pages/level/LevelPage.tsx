@@ -9,7 +9,9 @@ interface LevelProps {
     navigation: NavigationScreenProp<any, any>
 }
 
-const Level = ({ navigation }: LevelProps) => {
+const LevelPage = ({
+
+}: LevelProps) => {
     const [noteService] = useState<NoteService>(new NoteService())
 
     const playSound = async () => {
@@ -21,9 +23,8 @@ const Level = ({ navigation }: LevelProps) => {
     return (
         <View style={styles.container}>
             <Button title="Play Sound" onPress={playSound} />
-            <Button title="Go to another screen" onPress={() => navigation.navigate('AnotherScreen')} />
         </View>
-    );
+    )
 }
 
 const styles = StyleSheet.create({
@@ -33,4 +34,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default Level
+export default LevelPage
