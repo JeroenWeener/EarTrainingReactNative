@@ -18,8 +18,6 @@ const LevelPage = ({
 
     const playSound = async () => {
         noteService.playSound(Notes.E4)
-        const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/fs4vh.wav'))
-        await sound.playAsync()
     }
 
     const playGroundingSequence = async () => {

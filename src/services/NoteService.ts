@@ -27,12 +27,7 @@ class NoteService {
     }
 
     playSound = async (note: Notes) => {
-        console.log('Hello world!')
-        // const { sound } = await Audio.Sound.createAsync(
-        //     require('../assets/sounds/fs4vh.ogg')
-        // )
-        // await sound.playAsync();
-        // this.notes[Notes.A4].play()
+        console.log('Note service loaded!')
         this.notesArray[note].play()
     }
 }
@@ -46,14 +41,14 @@ class Note {
     async initSound(fileName : string)
     {
         const {sound} = await Audio.Sound.createAsync(
-            require('./../assets/sounds/' + fileName + '.ogg')
+            require('./../assets/sounds/' + fileName + '.mp3')
         )
         this.sound = sound
     }
 
-    play = async () => {
-        await this.sound.playAsync();
-    }
+    play = async () => await this.sound.playAsync()
+    stop = async () => await this.sound.stopAsync();
+
 }
 
 export enum Notes {
