@@ -26,9 +26,11 @@ class NoteService {
         console.log('Notes', Object.keys(Notes))
     }
 
-    playSound = async (note: Notes) => {
-        console.log('Note service loaded!')
-        this.notesArray[note].play()
+    playSound = async (note: Notes) => this.notesArray[note].play()
+    playNote = async (note: Notes) => this.notesArray[note].play()
+    playChord = async (chord: Chord) => {
+        this.notesArray.forEach(n => n.stop())
+        chord.play(this.notesArray)
     }
 }
 
@@ -47,8 +49,36 @@ class Note {
     }
 
     play = async () => await this.sound.playAsync()
-    stop = async () => await this.sound.stopAsync();
+    stop = async () => await this.sound.stopAsync()
 
+}
+
+export class Chord {
+    private sound!: Audio.Sound
+    private _groundNote : Notes
+    private _chordType : ChordType
+    private _inversion : Inversion
+    
+    constructor(groundNote : Notes, chordType : ChordType, inversion : Inversion){
+        this._groundNote = groundNote
+        this._chordType = chordType
+        this._inversion = inversion
+    }
+
+    async play(notesArray: Note[]){
+        notesArray[this._groundNote + Number(this._inversion > 0) * 12 ].play()
+        notesArray[this._groundNote + 3 + Number(this._chordType == ChordType.M) + Number(this._inversion > 1) * 12 ].play()
+        notesArray[this._groundNote + 7 + Number(this._inversion > 1) * 12 ].play()
+    }
+
+}
+
+export enum ChordType{
+    M, m
+}
+
+export enum Inversion{
+    root, first, second
 }
 
 export enum Notes {

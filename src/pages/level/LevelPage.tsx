@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { Dimensions, StyleSheet, TouchableHighlight, TouchableOpacity } from 'react-native'
 import { Button, View, Text } from "react-native"
 import { NavigationScreenProp } from "react-navigation"
-import NoteService, { Notes } from "../../services/NoteService"
+import NoteService, { ChordType, Notes, Chord, Inversion } from "../../services/NoteService"
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 interface LevelProps {
@@ -17,7 +17,7 @@ const LevelPage = ({
     const [noteService] = useState<NoteService>(NoteService.getInstance())
 
     const playSound = async () => {
-        noteService.playSound(Notes.E4)
+        noteService.playChord(new Chord(Notes.E4, ChordType.m, Inversion.root))
     }
 
     const playGroundingSequence = async () => {
